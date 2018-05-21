@@ -1,6 +1,4 @@
-import { DocTypes as CommonTypes } from 'common';
-
-export default Object.assign(CommonTypes, {
+export default {
   game: {
     "type":"Game",
     "packages": "playing-game-elements",
@@ -13,4 +11,4 @@ export default Object.assign(CommonTypes, {
       "Downloadable"
     ]
   }
-});
+};

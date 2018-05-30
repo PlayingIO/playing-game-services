@@ -2,7 +2,7 @@ import { iff, isProvider } from 'feathers-hooks-common';
 import { associateCurrentUser, queryWithCurrentUser } from 'feathers-authentication-hooks';
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
-import { hooks as content } from 'playing-content-services';
+import contents from 'playing-content-common';
 
 import GameEntity from '../../entities/game.entity';
 
@@ -22,24 +22,24 @@ export default function (options = {}) {
       create: [
         iff(isProvider('external'),
           associateCurrentUser({ idField: 'id', as: 'creator' })),
-        content.computePath({ type: 'game' }),
-        content.computeAncestors()
+        contents.computePath({ type: 'game' }),
+        contents.computeAncestors()
       ],
       update: [
         iff(isProvider('external'),
           associateCurrentUser({ idField: 'id', as: 'creator' })),
         hooks.depopulate('parent'),
         hooks.discardFields('metadata', 'ancestors', 'createdAt', 'updatedAt', 'destroyedAt'),
-        content.computePath({ type: 'game' }),
-        content.computeAncestors()
+        contents.computePath({ type: 'game' }),
+        contents.computeAncestors()
       ],
       patch: [
         iff(isProvider('external'),
           associateCurrentUser({ idField: 'id', as: 'creator' })),
         hooks.depopulate('parent'),
         hooks.discardFields('metadata', 'ancestors', 'createdAt', 'updatedAt', 'destroyedAt'),
-        content.computePath({ type: 'game' }),
-        content.computeAncestors()
+        contents.computePath({ type: 'game' }),
+        contents.computeAncestors()
       ]
     },
     after: {
@@ -47,13 +47,13 @@ export default function (options = {}) {
         hooks.populate('creator', { service: 'users' }),
         hooks.populate('parent', { service: 'workouts', fallThrough: ['headers'] }),
         hooks.populate('ancestors'), // with typed id
-        content.documentEnrichers(options),
+        contents.documentEnrichers(options),
         cache(options.cache, { headers: ['enrichers-document'] }),
         hooks.presentEntity(GameEntity, options.entities),
         hooks.responder()
       ],
       create: [
-        content.documentNotifier('document.create')
+        contents.documentNotifier('document.create')
       ]
     }
   };

@@ -3,8 +3,7 @@ import { associateCurrentUser, queryWithCurrentUser } from 'feathers-authenticat
 import { hooks } from 'mostly-feathers-mongoose';
 import { cache } from 'mostly-feathers-cache';
 import contents from 'playing-content-common';
-
-import GameEntity from '../../entities/game.entity';
+import { GameEntity } from 'playing-game-common';
 
 export default function (options = {}) {
   return {

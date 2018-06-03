@@ -1,7 +1,7 @@
 Playing Game Services
 =======================
 
-Game management microservices for playful applications.
+Game management microservices for building playful applications.
 
 # Usage
 

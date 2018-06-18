@@ -1,6 +1,6 @@
 {
   "name": "playing-game-services",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Game management microservices for building playful applications",
   "author": "Forafish",
   "license": "MIT",

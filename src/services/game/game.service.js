@@ -1,14 +1,14 @@
-import { Service, helpers, createService } from 'mostly-feathers-mongoose';
-import fp from 'mostly-func';
+const { Service, createService } = require('mostly-feathers-mongoose');
+const fp = require('mostly-func');
 
-import GameModel from '../../models/game.model';
-import defaultHooks from './game.hooks';
+const GameModel = require('../../models/game.model');
+const defaultHooks = require('./game.hooks');
 
 const defaultOptions = {
   name: 'games'
 };
 
-export class GameService extends Service {
+class GameService extends Service {
   constructor (options) {
     options = fp.assignAll(defaultOptions, options);
     super(options);
@@ -27,9 +27,8 @@ export class GameService extends Service {
   }
 }
 
-export default function init (app, options, hooks) {
+module.exports = function init (app, options, hooks) {
   options = { ModelName: 'game', ...options };
   return createService(app, GameService, GameModel, options);
-}
-
-init.Service = GameService;
+};
+module.exports.Service = GameService;
